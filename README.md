@@ -2,6 +2,10 @@
 My attempt at making full use of the timer library with mutiple timers
 The trouble with multiple timers being created and delted is the break in the link between the main code and the library when timer.delete is called.
 
+https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h
+https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp
+
+
 If you create a timer:
     if (!timer.isEnabled(loopT5)) {
         loopT5 = timer.setInterval(4000L, LEDToggle);
