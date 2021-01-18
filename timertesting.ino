@@ -4,7 +4,7 @@
 /*
 #1 Never start another timer in the loop if it is already running if you do, you'll create 2 timers and the first timers timerID is easily lost. (Both timers will run and you'll never be able to dig up the first timer and kill it)
     I was hoping  >>if (!timer.isEnabled(loopT5)) {loopT5 = timer.setInterval(1000L, LEDToggle);}<< would fix this but for some reason all timers (??1-16??)are enabled at setup()
-#2 When using setTimer and setTimeout (the ones that will expire) in the loop be sure to set their ID back to ??-1?? once finished with them if you don't that expired timerID will come back to haunt you
+#2 When using setTimer and setTimeout (the ones that will expire) in the loop be sure to set their ID back to ??-1?? ??99?? once finished with them if you don't that expired timerID will come back to haunt you
   timer.toggle(0) seems to toggle a lot of timers.. all the unused ones
   it's quit easy to end end with a lot of timers with the same ID's
 #3 If you try to delete a timer at the top of the loop using its ID you'll delete the first timer created in setup because calling timer.delete(ID4) before timer.Setup(ID4)
@@ -22,6 +22,13 @@ int button2;
 int button3;
 int button4;
 
+/*
+if you create timer pointers like this all three of these will point to timerID 0 until the first timer.Setup is called using one of these int's. So.. it would seem like 
+calling timer.delete(t2); would delete timerID 3, but it doesn't. IT WILL DELETE TIMER ID 0. which will most likely be the first timer.setInterval that was created in setup()
+int t0;
+int t1;
+int t2;
+Create timer pointer like this instead: */
 //if timers are created as setInterval in setup() they will hang onto there timerID forever
 int t0 = 99;
 int t1 = 99;
@@ -36,39 +43,34 @@ int t15;
 
 
 /////////************* **********///////// button's in Blynk app are set to push. tap a button in blynk and the functions below run once
-BLYNK_WRITE(V1)
-{
+BLYNK_WRITE(V1) {//this method allows loop4() to be run mutiple times (If you press V1 5 times loop4() will be ran 5 times) each in another timer slot
     button1 = param.asInt();
     if (button1) {
         loopT3 = timer.setTimeout(8000L, [] () { loop4(); loopT3 = 99;  } );
-        //loopT3 = timer.setInterval(4000L, loop4); //test 1
-        //loopT5 = timer.setInterval(1000L, LEDToggle);
-        //timer.restartTimer(t2);
-            //timer.disable(t1);  //test2
     }
 }
-BLYNK_WRITE(V2) {//if timer is already running, don't turn start it again
+BLYNK_WRITE(V2) {//if timer is already running, don't turn start again
     button2 = param.asInt();
     if (button2) {
-            if (!timer.isEnabled(loopT5)) {
-            loopT5 = timer.setInterval(4000L, LEDToggle);
+            if (!timer.isEnabled(loopT4)) {
+            loopT4 = timer.setInterval(4000L, LEDToggle);
             }
     }
 }
-BLYNK_WRITE(V3)
-{
+BLYNK_WRITE(V3) {
     button3 = param.asInt(); 
     if (button3) {
-        //timer.deleteTimer()
-            timer.toggle(t0);
+        timer.deleteTimer(loopT4);
+        loopT4 = 99; //<<< Very Important!!  this is the disconnect I talk about  timer.delete should return something to the main code.
+        // dont do this: timer.toggle(loopT4);//cause problems if you toggle off than create another timer using loopT4 var. you loose a timer slot
     }
 }
-BLYNK_WRITE(V4)
-{
+BLYNK_WRITE(V4) {//this seems to be the fix I've been looking for--hoping to take this idea back into my other code files. 1/17/21-Testing this
     button4 = param.asInt(); 
     if (button4) {
-        //timer.deleteTimer()
-            timer.toggle(loopT5);
+        if (loopT5 == 99 && !timer.isEnabled(loopT5)) { //creating timers like this allow you to "come back ontop" of this again and again before the timer runs out
+            loopT5 = timer.setInterval(4000L, LEDToggle);
+        }
     }
 }
 
@@ -79,7 +81,7 @@ void setup() {
     digitalWrite(LED, HIGH);
     ledon = 1;
     
-    t0 = timer.setInterval(10000L, WiFifunction);
+    t0 = timer.setInterval(10000L, WiFifunction); //setInterval timers never call timer.delete >> but if you ever do delete be sure to set its var back to the unsed state
     t1 = timer.setInterval(5000L, sendinfo);
     //t2 = timer.setTimeout(2000L, loop4); // setting timers like this allows the var t2 to come back to haunt you time an again do this instead:
     t2 = timer.setTimeout(4000L, [] () { loop4(); t2 = 99; }); //asaign the unused timer flag to t2
