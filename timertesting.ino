@@ -49,7 +49,7 @@ BLYNK_WRITE(V1) {//this method allows loop4() to be run mutiple times (If you pr
         loopT3 = timer.setTimeout(8000L, [] () { loop4(); loopT3 = 99;  } );
     }
 }
-BLYNK_WRITE(V2) {//if timer is already running, don't turn start again
+BLYNK_WRITE(V2) {//if timer is already running, don't turn start again --This helps, but doesn't entirely fix the problem.  actually mabye it does now that I'm doing loopT4 = 99; above setup()
     button2 = param.asInt();
     if (button2) {
             if (!timer.isEnabled(loopT4)) {
@@ -69,7 +69,8 @@ BLYNK_WRITE(V4) {//this seems to be the fix I've been looking for--hoping to tak
     button4 = param.asInt(); 
     if (button4) {
         if (loopT5 == 99 && !timer.isEnabled(loopT5)) { //creating timers like this allow you to "come back ontop" of this again and again before the timer runs out
-            loopT5 = timer.setInterval(4000L, LEDToggle);
+            //loopT5 = timer.setInterval(4000L, LEDToggle); //you can setup as many of these timer types as you like(16 actully) Just be sure to set loopT5 back to 99 if you ever call timer.delete(loopT5);
+            loopT5 = timer.setTimeout(8000L, [] () { LEDToggle(); loopT5 = 99; });
         }
     }
 }
