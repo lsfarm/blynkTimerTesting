@@ -4,7 +4,7 @@ Files in question:
 https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h  
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
 
-1/18/21: I think the only time you need to worry about keep track of timers is if a timer will ever "come back on top" of itself before it has ran out of your ever call the following functions in your code:  
+1/18/21: I think the only time you need to worry about keep track of timers is if a timer will ever "come back on top" of itself before it has ran out OR your ever call the following functions in your code:  
 ```javascript
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
 void SimpleTimer::deleteTimer(unsigned timerId) {  
@@ -25,14 +25,21 @@ int myTimer1; //this will forever cause headaches because this points to timer 0
 
 Than if you ever create a new timer in the loop make sure it's not already created with this:  
 ```javascrpit
-            if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if like this is all thats needed  
-                //start your timer here
-            }  
+if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if like this is all thats needed               
+    //start your timer here
+}  
 ```
 and finally when you create timers be sure to set their pointers back to timerNA like this:  
 ```
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
 ```
+```javascript
+loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
+```
+~~~~
+loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
+~~~~
+
 
 
 If you create a timer:  
