@@ -34,7 +34,7 @@ and finally when you create timers be sure to set their pointers back to timerNA
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
 ```
 
-#Another Example
+# Another Example  
 If you create a timer:  
 ```javascript
 if (!timer.isEnabled(loopT5)) {  
