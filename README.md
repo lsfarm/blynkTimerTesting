@@ -5,6 +5,7 @@ https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
 
 1/18/21: I think the only time you need to worry about keep track of timers is if a timer will ever "come back on top" of itself before it has ran out of your ever call the following functions in your code:  
+```javascript
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
 void SimpleTimer::deleteTimer(unsigned timerId) {  
 void SimpleTimer::restartTimer(unsigned numTimer) {  
@@ -13,19 +14,25 @@ void SimpleTimer::disable(unsigned numTimer) {
 void SimpleTimer::enableAll() {  
 void SimpleTimer::disableAll() {  
 void SimpleTimer::toggle(unsigned numTimer) {  
+```
 If you ever call any of the functions above be sure to track that timer from the very start with this above setup():  
+```javascript
 int timerNA = 99; // I'm not sure if 99 is the best number for here yet.  
 int myTimer1 = timerNA;  
+```
 by doing this you avoid setting the timer pointer to it's default state which points to timerID slot 0. I used to setup timers like this:  
 int myTimer1; //this will forever cause headaches because this points to timer 0. and the first time in your loop that you call timer.deleteTimer(myTimer8); you won't be deleting timer 8, you'll be deleting the timer in slot 0, which is most likely the first timer.setInterval in setup() that probably does something Blynky!  
 
 Than if you ever create a new timer in the loop make sure it's not already created with this:  
+```javascrpit
             if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if like this is all thats needed  
                 //start your timer here
             }  
-
+```
 and finally when you create timers be sure to set their pointers back to timerNA like this:  
+```
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
+```
 
 
 If you create a timer:  
