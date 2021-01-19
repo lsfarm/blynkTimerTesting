@@ -1,10 +1,10 @@
 # blynkTimerTesting
-My attempt at making full use of the timer library with mutiple timers. The trouble with multiple timers being created and deleted is the break in the link between the main code and the library when timer.delete is called.  
-Files in question:  
+An attempt at making full use of the timer library with mutiple timers. The trouble with multiple timers being created and deleted is the break in the link between the main code and the library when timer.delete(); is called.  
+Library Files:  
 https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h  
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
 
-1/18/21: I think the only time you need to worry about keep track of timers is if a timer will ever "come back on top" of itself before it has ran out OR your ever call the following functions in your code:  
+1/18/21: I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR your ever call the following functions in your code:  
 ```javascript
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
 void SimpleTimer::deleteTimer(unsigned timerId) {  
@@ -21,7 +21,7 @@ int timerNA = 99; // I'm not sure if 99 is the best number for here yet.
 int myTimer1 = timerNA;  
 ```
 by doing this you avoid setting the timer pointer to it's default state which points to timerID slot 0. I used to setup timers like this:  
-int myTimer1; //this will forever cause headaches because this points to timer 0. and the first time in your loop that you call timer.deleteTimer(myTimer8); you won't be deleting timer 8, you'll be deleting the timer in slot 0, which is most likely the first timer.setInterval in setup() that probably does something Blynky!  
+int myTimer1; //this will forever cause headaches because this points to timer 0. and if you call timer.deleteTimer(myTimer8); in loop before any timer.setTimer(); you won't be deleting timer 8, you'll be deleting the timer in slot 0, which is most likely the first timer.setInterval in setup() that probably does something Blynky!  
 
 Than if you ever create a new timer in the loop make sure it's not already created with this:  
 ```javascrpit
