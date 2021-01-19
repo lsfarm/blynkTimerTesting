@@ -30,17 +30,9 @@ if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if li
 }  
 ```
 and finally when you create timers be sure to set their pointers back to timerNA like this:  
-```
-loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
-```
 ```javascript
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
 ```
-~~~~
-loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
-~~~~
-
-
 
 If you create a timer:  
 ```javascript
@@ -50,12 +42,14 @@ if (!timer.isEnabled(loopT5)) {
 ```
 loopT5 is now equal to 0 -- which means timer ID slot 0  
 Then toggle it off:  
-```timer.toggle(loopT5);  
-    ```
+```javascript
+timer.toggle(loopT5);  
+```
 now running:  
-    if (!timer.isEnabled(loopT5)) {  
-        loopT5 = timer.setInterval(4000L, LEDToggle);  
-    }  
+```javascript
+if (!timer.isEnabled(loopT5)) {  
+    loopT5 = timer.setInterval(4000L, LEDToggle);  
+}  
 ```
 allows another timer to be created in timer slot 1 and the timer in slot 0 is still there, but disabled. I haven't found a way to free up slot 0 again.
 not sure how to safely use timer.toggle();
