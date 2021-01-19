@@ -29,6 +29,7 @@ loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA; 
 
 
 If you create a timer:  
+```
       if (!timer.isEnabled(loopT5)) {  
         loopT5 = timer.setInterval(4000L, LEDToggle);  
     }  
@@ -39,5 +40,6 @@ now running:
     if (!timer.isEnabled(loopT5)) {  
         loopT5 = timer.setInterval(4000L, LEDToggle);  
     }  
+```
 allows another timer to be created in timer slot 1 and the timer in slot 0 is still there, but disabled. I haven't found a way to free up slot 0 again.
 not sure how to safely use timer.toggle();
