@@ -29,13 +29,15 @@ loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA; 
 
 
 If you create a timer:  
+```javascript
+if (!timer.isEnabled(loopT5)) {  
+  loopT5 = timer.setInterval(4000L, LEDToggle);  
+}
 ```
-      if (!timer.isEnabled(loopT5)) {  
-        loopT5 = timer.setInterval(4000L, LEDToggle);  
-    }  
 loopT5 is now equal to 0 -- which means timer ID slot 0  
 Then toggle it off:  
-    timer.toggle(loopT5);  
+```timer.toggle(loopT5);  
+    ```
 now running:  
     if (!timer.isEnabled(loopT5)) {  
         loopT5 = timer.setInterval(4000L, LEDToggle);  
