@@ -8,6 +8,7 @@ https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp
 
 1/18/21: I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR if you ever calls the following functions in your code:  
 ```cpp
+//The 8 functions that can edit a running timer:
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
 void SimpleTimer::deleteTimer(unsigned timerId) {  
 void SimpleTimer::restartTimer(unsigned numTimer) {  
