@@ -34,7 +34,9 @@ if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if li
 and finally when you create timers be sure to set their pointers back to timerNA like this:  
 ```cpp
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
-```
+```  
+1/20/21: If you never mess with a timer with any of the 8 functions above and you make sure to allow time for the timer to expire, is it necessary to keep track of it
+and reset it to timerNA when its deleted?
 
 # Another Example  
 If you create a timer:  
