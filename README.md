@@ -1,6 +1,7 @@
 # blynkTimerTesting
 An attempt at making full use of the timer library with mutiple timers. The trouble with multiple timers being created and deleted is the break in the link between the main code and the library when timer.delete(); is called.
 You can get an int from the library when creating a timer, but than it's up to the coder to set that int back to some default value(needs to be an int outside the timer array range-is that ?0-15? ?1-16?) when the timer expires and deleteTimer is called.  
+Note: If you ever get a compile error of some variable not captured in your timer, declaring that variable globaly seems to fix this problem.(#define your var above setup() )  
 Library Files:  
 https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h  
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
