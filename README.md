@@ -6,7 +6,8 @@ Library Files:
 https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h  
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
 
-1/18/21: I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR if you ever calls the following functions in your code:  
+##1st Testing
+1/18/21: [File used to test this](https://github.com/lsfarm/blynkTimerTesting/blob/main/timertesting.ino) I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR if you ever calls the following functions in your code:  
 ```cpp
 //The 8 functions that can edit a running timer:
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
@@ -36,10 +37,10 @@ and finally when you create timers be sure to set their pointers back to timerNA
 ```cpp
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
 ```  
-1/20/21: If you never mess with a timer with any of the 8 functions above and you make sure to allow time for the timer to expire, is it necessary to keep track of it
-and reset it to timerNA when its deleted?
+##2nd Testing  
+1/20/21: If you never mess with a timer with any of the 8 functions above and you make sure to allow time for the timer to expire, is it necessary to keep track of it and reset it to timerNA when its deleted? [See this timertesting2 file for this](google.com)
 
-# Another Example  
+## Another Example  
 If you create a timer:  
 ```cpp
 if (!timer.isEnabled(loopT5)) {  
