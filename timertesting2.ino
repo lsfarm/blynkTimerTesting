@@ -12,7 +12,7 @@
 */
 
 #include <blynk.h>
-char auth[] = "oxqsxd9OWMutgQ0QlUBn_pt1H5n-cUw4"; //
+char auth[] = "****"; //
 WidgetTerminal terminal(V10);
 BlynkTimer timer;
 bool ledon;
