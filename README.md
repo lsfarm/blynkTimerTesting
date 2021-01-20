@@ -5,7 +5,7 @@ https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h
 https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp  
 
 1/18/21: I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR your ever call the following functions in your code:  
-```javascript
+```cpp
 bool SimpleTimer::changeInterval(unsigned numTimer, unsigned long d) {  
 void SimpleTimer::deleteTimer(unsigned timerId) {  
 void SimpleTimer::restartTimer(unsigned numTimer) {  
@@ -16,7 +16,7 @@ void SimpleTimer::disableAll() {
 void SimpleTimer::toggle(unsigned numTimer) {  
 ```
 If you ever call any of the functions above be sure to track that timer from the very start with this above setup():  
-```javascript
+```c
 int timerNA = 99; // I'm not sure if 99 is the best number for here yet.  
 int myTimer1 = timerNA;  
 ```
