@@ -26,30 +26,30 @@ by doing this you avoid setting the timer pointer to it's default state which po
 int myTimer8; //this will forever cause headaches because this points to timerID 0. and if you call timer.deleteTimer(myTimer8); in loop before any timer.setTimer(); you won't be deleting timer 8, you'll be deleting the timer in slot 0, which is most likely the first timer.setInterval in setup() that probably does something Blynky!  
 
 Than if you ever create a new timer in the loop make sure it's not already created with this:  
-```javascrpit
+```cpp
 if (!timer.isEnabled(loopT4)) {// to more I study this the more I think an if like this is all thats needed               
     //start your timer here
 }  
 ```
 and finally when you create timers be sure to set their pointers back to timerNA like this:  
-```javascript
+```cpp
 loopT3 = timer.setTimeout(30000L, [] () { dosomethinglater(); loopT3 = timerNA;  } );
 ```
 
 # Another Example  
 If you create a timer:  
-```javascript
+```cpp
 if (!timer.isEnabled(loopT5)) {  
   loopT5 = timer.setInterval(4000L, LEDToggle);  
 }
 ```
 loopT5 is now equal to 0 -- which means timer ID slot 0  
 Then toggle it off:  
-```javascript
+```cpp
 timer.toggle(loopT5);  
 ```
 now running:  
-```javascript
+```cpp
 if (!timer.isEnabled(loopT5)) {  
     loopT5 = timer.setInterval(4000L, LEDToggle);  
 }  
