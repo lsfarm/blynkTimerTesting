@@ -2,8 +2,8 @@
 An attempt at making full use of the timer library with mutiple timers. The trouble with multiple timers being created and deleted is the break in the link between the main code and the library when timer.delete(); is called.
 You can get an int from the library when creating a timer, but than it's up to the coder to set that int back to some default value(needs to be an int outside the timer array range (is that ?0-15? ?1-16?) when the timer expires and deleteTimer is called.  
 Note: If you ever get a compile error of some variable not captured in your timer, declaring that variable globaly seems to fix this problem.(#define your var above setup() )  
-Library Files:  
-[BlynkTimer.h](https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h)    
+Library Files:
+[BlynkTimer.h](https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h)
 [BlynkTimer.cpp](https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp)  
 
 ## 1st Testing
@@ -60,4 +60,3 @@ if (!timer.isEnabled(loopT5)) {
 ```
 allows another timer to be created in timer slot 1 and the timer in slot 0 is still there, but disabled. I haven't found a way to free up slot 0 again.
 not sure how to safely use timer.toggle();
-2 text size
