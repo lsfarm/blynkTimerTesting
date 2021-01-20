@@ -3,8 +3,8 @@ An attempt at making full use of the timer library with mutiple timers. The trou
 You can get an int from the library when creating a timer, but than it's up to the coder to set that int back to some default value(needs to be an int outside the timer array range (is that ?0-15? ?1-16?) when the timer expires and deleteTimer is called.  
 Note: If you ever get a compile error of some variable not captured in your timer, declaring that variable globaly seems to fix this problem.(#define your var above setup() )  
 Library Files:  
-[BlynkTimer.h]https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h)    
-[BlynkTimer.cpp]https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp)  
+[BlynkTimer.h](https://github.com/blynkkk/blynk-library/blob/master/src/Blynk/BlynkTimer.h)    
+[BlynkTimer.cpp](https://github.com/blynkkk/blynk-library/blob/master/src/utility/BlynkTimer.cpp)  
 
 ## 1st Testing
 1/18/21: [File used to test this](https://github.com/lsfarm/blynkTimerTesting/blob/main/timertesting.ino) I think the only time you need to worry about keeping track of timers is if a timer will ever "come back on top" of itself before the time has ran out OR if you ever calls the following functions in your code:  
@@ -60,3 +60,4 @@ if (!timer.isEnabled(loopT5)) {
 ```
 allows another timer to be created in timer slot 1 and the timer in slot 0 is still there, but disabled. I haven't found a way to free up slot 0 again.
 not sure how to safely use timer.toggle();
+2 text size
